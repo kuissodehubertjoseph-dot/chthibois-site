@@ -20,7 +20,7 @@ Livrable : `chthibois-site/` — site statique HTML/CSS/JS vanilla, 19 pages, au
 | notre-entreprise.html | Présentation + section `#engagements` |
 | equipe.html | L'équipe (5 portraits + photo de groupe, lightbox) |
 | materiel-forestier.html | Matériel forestier (10 machines, galerie + lightbox) |
-| espace-presse.html | Espace presse (mailto: réels) |
+
 | grossiste.html | Grossiste pour professionnels |
 | contact.html | Formulaire de contact avec validation JS |
 | mentions-legales.html | Mentions légales |
@@ -82,7 +82,6 @@ Aucun placeholder "photo à intégrer" n'a été nécessaire : toutes les images
 - Animations d'apparition au scroll via IntersectionObserver (`.reveal`), désactivées si `prefers-reduced-motion`.
 - Effets de survol sur cartes produits/catégories (élévation, zoom image discret).
 - Galerie photo + lightbox accessible (focus, échap) sur `equipe.html` et `materiel-forestier.html`.
-- Compteurs animés sur `espace-presse.html` (chiffres réels : 7 salariés, 404 avis Google, 30km de rayon de livraison — aucun chiffre inventé).
 - Formulaire de contact avec validation temps réel (bordures, messages d'erreur) et envoi simulé en JS.
 - Carrousel d'avis clients sur l'accueil (avis réels du site source).
 - `loading="lazy"` sur les images secondaires, focus clavier visible, contrastes vérifiés.

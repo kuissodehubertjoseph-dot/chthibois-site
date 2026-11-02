@@ -1,5 +1,5 @@
 // ==========================================================================
-// Chthibois — panier (localStorage, simulé, partagé entre toutes les pages)
+// Chthibois - panier (localStorage, simulé, partagé entre toutes les pages)
 // ==========================================================================
 window.ChthiboisCart = (function () {
   var KEY = 'chthibois_cart';
@@ -62,7 +62,7 @@ window.ChthiboisCart = (function () {
 })();
 
 // ==========================================================================
-// Chthibois — script principal (vanilla JS)
+// Chthibois - script principal (vanilla JS)
 // ==========================================================================
 (function () {
   'use strict';
@@ -127,76 +127,8 @@ window.ChthiboisCart = (function () {
     });
   }
 
-  /* ---------------- Scroll reveal ---------------- */
-  var revealEls = document.querySelectorAll('.reveal');
-  if (reduceMotion || !('IntersectionObserver' in window)) {
-    revealEls.forEach(function (el) { el.classList.add('is-visible'); });
-  } else {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach(function (el) { io.observe(el); });
-  }
-
-  /* ---------------- Subtle scroll parallax on tilted photo frames ---------------- */
-  var parallaxEls = document.querySelectorAll('[data-parallax]');
-  if (parallaxEls.length && !reduceMotion) {
-    var ticking = false;
-    function updateParallax() {
-      var vh = window.innerHeight;
-      parallaxEls.forEach(function (el) {
-        var rect = el.getBoundingClientRect();
-        var progress = (rect.top + rect.height / 2 - vh / 2) / vh;
-        var offset = Math.max(-14, Math.min(14, progress * -14));
-        el.style.transform = 'translateY(' + offset + 'px)';
-      });
-      ticking = false;
-    }
-    document.addEventListener('scroll', function () {
-      if (!ticking) { window.requestAnimationFrame(updateParallax); ticking = true; }
-    }, { passive: true });
-    updateParallax();
-  }
-
-  /* ---------------- Animated counters ---------------- */
-  var counters = document.querySelectorAll('[data-counter]');
-  function animateCounter(el) {
-    var target = parseFloat(el.getAttribute('data-counter'));
-    var suffix = el.getAttribute('data-suffix') || '';
-    if (reduceMotion) { el.textContent = target + suffix; return; }
-    var duration = 1400;
-    var start = null;
-    function step(ts) {
-      if (start === null) start = ts;
-      var progress = Math.min((ts - start) / duration, 1);
-      var eased = 1 - Math.pow(1 - progress, 3);
-      var value = Math.round(target * eased);
-      el.textContent = value + suffix;
-      if (progress < 1) requestAnimationFrame(step);
-      else el.textContent = target + suffix;
-    }
-    requestAnimationFrame(step);
-  }
-  if (counters.length) {
-    if ('IntersectionObserver' in window) {
-      var counterIo = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            animateCounter(entry.target);
-            counterIo.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.5 });
-      counters.forEach(function (el) { counterIo.observe(el); });
-    } else {
-      counters.forEach(animateCounter);
-    }
-  }
+  /* Les blocs .reveal sont affiches directement, sans animation. */
+  document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
 
   /* ---------------- Lightbox (equipe.html / materiel-forestier.html) ---------------- */
   var lightboxTriggers = document.querySelectorAll('[data-lightbox]');
@@ -298,7 +230,7 @@ window.ChthiboisCart = (function () {
       var successEl = form.querySelector('.form-success') || document.querySelector('.form-success');
       form.querySelectorAll('input, textarea').forEach(function (f) { f.disabled = true; });
       var submitBtn = form.querySelector('button[type="submit"]');
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Message envoyé ✓'; }
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Message envoyé'; }
       if (successEl) successEl.classList.add('is-visible');
     });
   }
@@ -372,7 +304,7 @@ window.ChthiboisCart = (function () {
 
       var successEl = productForm.querySelector('[data-product-success]');
       var btn = productForm.querySelector('.btn-addcart');
-      if (btn) { btn.textContent = 'Ajouté ✓'; setTimeout(function () { btn.textContent = 'Ajouter au panier'; }, 2200); }
+      if (btn) { btn.textContent = 'Ajouté'; setTimeout(function () { btn.textContent = 'Ajouter au panier'; }, 2200); }
       if (successEl) {
         successEl.classList.add('is-visible');
         setTimeout(function () { successEl.classList.remove('is-visible'); }, 2200);
@@ -404,7 +336,7 @@ window.ChthiboisCart = (function () {
       }
 
       var original = btn.textContent;
-      btn.textContent = 'Ajouté ✓';
+      btn.textContent = 'Ajouté';
       btn.disabled = true;
       setTimeout(function () { btn.textContent = original; btn.disabled = false; }, 1800);
     });
